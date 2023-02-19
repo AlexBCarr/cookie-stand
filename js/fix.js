@@ -1,5 +1,7 @@
 'use strict';
 
+ 
+
 
 let htmlLocation = document.getElementById("cookie-locations");
 
@@ -64,7 +66,7 @@ function renderHeader() {
   tableEle.appendChild(head);
 };
 
-function renderFooter() {
+fuction renderFooter() {
   let foot = document.createElement('tfoot');
   let trEle = document.createElement('tr');
   let thEle = document.createElement('th');
@@ -122,13 +124,8 @@ StoreLocations.prototype.render = function () {
 };
 
 // ******** EXECUTABLE CODE ********
-getElementById();  
+
 htmlLocation();
-openHours();
-randomCustomers();
-StoreLocations(); 
-globalStoreList();
-tableEle(); 
 seattle.getCookies();
 seattle.render();
 tokyo.getCookies();
@@ -460,7 +457,6 @@ renderAll();
 // dubai.render();
 // paris.render();
 // lima.render();
-
 
 
 
