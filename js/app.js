@@ -1,7 +1,12 @@
 'use strict';
 
 
-let htmlLocation = document.getElementById("cookie-locations");
+let cookieLocation = document.getElementById('cookie-locations');
+
+let myForm = document.getElementById('my-form');
+
+let tableEle = document.createElement('table');
+cookieLocation.appendChild(tableEle);
 
 
 // ******** GLOBALS ********
@@ -17,7 +22,7 @@ let openHours = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm
 function randomCustomers(min,max){
   // got this from MDN docs
   return Math.floor(Math.random() * (max - min + 1) + min);
-};
+}
 
 // ******** CONSTRUCTPR FUNCTIONS ********
 
@@ -28,7 +33,7 @@ function StoreLocations(name, minCust, maxCust, avgCookieSale) {
   this.avgCookieSale = avgCookieSale;
   this.dailyCookieSold = 0;
   this.hourCookieSale = [];
-};
+}
 
 
 // ******** OBJECT LITERALS ********
@@ -40,58 +45,64 @@ let lima = new StoreLocations('Lima', 2, 16, 4);
 
 let globalStoreList = [seattle, tokyo, dubai, paris, lima];
 
+
+
+
+function renderAll(){
+  for (let i = 0; i < globalStoreList.length; i++) {
+    globalStoreList[i].
+  };
+}
 // ******** TABLE ********
 
-const tableEle = document.createElement('table');
-salesSectionElement.appendChild(tableEle);
 
-function renderHeader() {
-  let head = document.createElement('head');
+function tableHeader() {
   let trEle = document.createElement('tr');
+  tableEle.appendChild(trEle);
+
   let thEle = document.createElement('th');
   thEle.textContent = 'Store Location';
   trEle.appendChild(thEle);
 
   for (let i = 1; i < openHours.length; i++) {
-    thEle = document.createElement('th');
-    thEle.textContent = openHours[i];
-    trEle.appendChild(thEle);
+    let tdEle = document.createElement('td');
+    tdEle.textContent = openHours[i];
+    trEle.appendChild(tdEle);
   }
-  thEle = document.createElement('th');
-  thEle.textContent = 'Daily Location Total';
-  trEle.appendChild(thEle);
-  head.appendChild(trEle);
-  tableEle.appendChild(head);
-};
+  let td2Ele = document.createElement('td');
+  td2Ele.textContent = 'Daily Location Total';
+  trEle.appendChild(td2Ele);
+  
+}
 
-function renderFooter() {
-  let foot = document.createElement('tfoot');
-  let trEle = document.createElement('tr');
-  let thEle = document.createElement('th');
-  let total;
+function tableFooter() {
+  let tFoot = document.createElement('tfoot');
+  tableEle.appendChild(tFoot);
 
-  thEle.textContent = 'Totals';
-  trEle.appendChild(thEle);
+  let fRow = document.createElement('tr');
+  tFoot.appendChild(fRow);
+  let fCell = document.createElement('td');
+  fCell.textContent = 'Totals';
+  
+  fRow.appendChild(fCell)
 
-  for (let i = 0; i < globalStoreList.length; i++) {
-    let total = 0
-    for (let j = 0; j < globalStoreList[i].avgCookieSale.length; j++) {
-      total += globalStoreList[i].avgCookieSale[j];
-      return total
+  let grandTotal = 0;
+  for (let i = 0; i < openHours.length; i++) {
+    let total = 0;
+    for (let j = 0; j < globalStoreList[i].length; j++) {
+      total += globalStoreList[j].avgCookieSale[j];
+      grandTotal += globalStoreList[j].avgCookieSale[i];
     }
+    let totalEle = document.createElement('td');
+    totalEle.textContent = total;
+    fRow.appendChild(totalEle);
   }
-  for (let i = 0; i < storeHours.length; i++) {
-    thEle = document.createElement('th');
-    thEle.textContent = total;
-    trEle.appendChild(thEle);
-  }
-  thEle = document.createElement('th');
-  thEle.textContent = total;
-  trEle.appendChild(trEle);
-  foot.appendChild(trEle);
-  tableEle.appendChild(foot);
+  let grandTotalCell = document.createElement('td');
+  grandTotalCell.textContent = grandTotal;
+  fRow.appendChild(grandTotalCell);
+  console.log(grandTotal);
 
-};
+}
 
 
 // ******** PROTOTYPE ********
@@ -106,13 +117,13 @@ StoreLocations.prototype.getCookies = function () {
 };
 
 StoreLocations.prototype.render = function () {
-  Const trEle = document.createElement('tr');
+  let trEle = document.createElement('tr');
   tableEle.appendChild(trEle);
-  const thEle = document.createElement('th');
+  let thEle = document.createElement('th');
   trEle.appendChild(thEle);
   thEle.textContent = this.name;
   for (let i = 1; i <this.hourCookieSale.length; i++) {
-    const tdEle = document.createElement('td');
+    let tdEle = document.createElement('td');
     trEle.appendChild(tdEle);
     tdEle.textContent = this.hourCookieSale[i];
   }
@@ -122,13 +133,13 @@ StoreLocations.prototype.render = function () {
 };
 
 // ******** EXECUTABLE CODE ********
-getElementById();  
-htmlLocation();
-openHours();
+
+
+
 randomCustomers();
-StoreLocations(); 
+StoreLocations();
 globalStoreList();
-tableEle(); 
+tableEle();
 seattle.getCookies();
 seattle.render();
 tokyo.getCookies();
@@ -139,9 +150,9 @@ paris.getCookies();
 paris.render();
 lima.getCookies();
 lima.render();
-renderHeader();
-renderFooter();
-renderAll();
+tableHeader();
+tableFooter();
+
 
 
 
